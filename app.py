@@ -1,12 +1,18 @@
 import streamlit as st # type: ignore
 import numpy as np
 import pandas as pd
-import tensorflow as tf #type:ignore
-from tensorflow.keras.models import load_model
+try:
+    import tensorflow as tf
+except Exception as e:
+    tf = None
+    # If TensorFlow is not available, show an error in the Streamlit app and stop further execution
+    import streamlit as _st
+    _st.error(f"TensorFlow could not be imported: {e}")
+    _st.stop()
 from sklearn.preprocessing import StandardScaler , OneHotEncoder , LabelEncoder
 import pickle
 
-model=load_model("model.h5")
+model = tf.keras.models.load_model("model.h5")
 
 
 
@@ -37,19 +43,7 @@ input_data = pd.DataFrame({
 'NumOfProducts': [num_of_products],
 'HasCrCard': [has_cr_card],
 'IsActiveMember': [is_active_member],
-'EstimatedSalary': [estimated_salary]})
-
-input_data = pd.DataFrame({
-'CreditScore': [credit_score],
-'Gender': [label_encoder_gender.transform([gender])[0]],
-'Age': [age],
-'Tenure': [tenure],
-'Balance': [balance],
-'NumOfProducts': [num_of_products],
-'HasCrCard': [has_cr_card],
-'IsActiveMember': [is_active_member],
 'EstimatedSalary': [estimated_salary]
-
 })
 
 # One-hot enode 'Geography
