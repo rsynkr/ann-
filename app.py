@@ -2,7 +2,7 @@ import streamlit as st # type: ignore
 import numpy as np
 import pandas as pd
 try:
-    import tensorflow as tf
+    import Tensorflow as tf
 except Exception as e:
     tf = None
     # If TensorFlow is not available, show an error in the Streamlit app and stop further execution
